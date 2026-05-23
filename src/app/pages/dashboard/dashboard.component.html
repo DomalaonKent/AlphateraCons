@@ -1,0 +1,318 @@
+<div class="layout-wrapper" [class.sidebar-narrow]="sidebarNarrow">
+
+  <!-- Mobile Backdrop -->
+  <div class="sidebar-backdrop" (click)="closeSidebar()" [class.show]="sidebarVisible && isMobile"></div>
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" [class.sidebar-visible]="sidebarVisible">
+
+    <div class="sidebar-header">
+      <a class="sidebar-brand" href="#">
+        <img src="assets/images/logo.png" alt="Alphatera" class="brand-logo" />
+        <div class="brand-text" *ngIf="!sidebarNarrow">
+          <span class="brand-name">ALPHATERA</span>
+          <span class="brand-sub">CONSTRUCTION SUPPLY</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="sidebar-scroll">
+      <ul class="sidebar-nav">
+        <li><a class="nav-link" [class.active]="activeSection==='home'" (click)="scrollTo('home')">
+          <span class="nav-dot"></span><span class="nav-label">Home</span></a></li>
+        <li>
+          <a class="nav-link" [class.active]="isChildRoute" (click)="goToAbout()">
+            <span class="nav-dot"></span>
+            <span class="nav-label">About</span>
+          </a>
+        </li>
+        <li><a class="nav-link" [class.active]="activeSection==='services'" (click)="scrollTo('services')">
+          <span class="nav-dot"></span><span class="nav-label">Services</span></a></li>
+        <li><a class="nav-link" [class.active]="activeSection==='projects'" (click)="scrollTo('projects')">
+          <span class="nav-dot"></span><span class="nav-label">Projects</span></a></li>
+        <li><a class="nav-link" [class.active]="activeSection==='team'" (click)="scrollTo('team')">
+          <span class="nav-dot"></span><span class="nav-label">Our Team</span></a></li>
+        <li><a class="nav-link" [class.active]="activeSection==='contacts'" (click)="scrollTo('contacts')">
+          <span class="nav-dot"></span><span class="nav-label">Contacts</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-cta-block" *ngIf="!sidebarNarrow">
+      <button class="quote-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M8 12h8M12 8v8"/>
+        </svg>
+        REQUEST A QUOTE
+      </button>
+      <div class="sidebar-contacts">
+        <div class="sc-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+63 912 345 6789</span>
+        </div>
+        <div class="sc-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>info&#64;alphatera.com</span>
+        </div>
+      </div>
+      <div class="sidebar-socials">
+        <a href="#" class="soc-link">f</a>
+        <a href="#" class="soc-link">in</a>
+        <a href="#" class="soc-link">ig</a>
+      </div>
+      <p class="sidebar-copy">© 2025 Alphatera Construction Supply<br>All Rights Reserved.</p>
+    </div>
+
+    <div class="sidebar-footer-toggle" (click)="toggleNarrow()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [class.flip]="sidebarNarrow">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      <span class="nav-label" *ngIf="!sidebarNarrow">Collapse</span>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <div class="main-content">
+
+    <!-- Mobile top bar -->
+    <header class="mobile-bar">
+      <button class="mob-toggle" (click)="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="mob-brand">
+        <img src="assets/images/logo.png" alt="A" class="mob-logo"/>
+        <span>ALPHATERA</span>
+      </div>
+      <button class="mob-logout" (click)="logout()">LOGOUT</button>
+    </header>
+
+    <!-- ══ DASHBOARD CONTENT — natatago kapag nasa About page ══ -->
+    <ng-container *ngIf="!isChildRoute">
+
+      <!-- ══ HERO ══ -->
+      <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+          <p class="hero-tag">YOUR TRUSTED PARTNER IN CONSTRUCTION</p>
+          <h1 class="hero-h1">BUILDING SMART.<br><span class="hero-accent">SUPPLYING FAST.</span></h1>
+          <p class="hero-sub">Reliable construction materials and solutions<br>for every project.</p>
+          <div class="hero-btns">
+            <button class="btn-primary" (click)="scrollTo('services')">EXPLORE SERVICES &rarr;</button>
+            <button class="btn-ghost" (click)="scrollTo('contacts')">REQUEST QUOTE</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ STATS ══ -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+          <strong>500+</strong><span>Projects Completed</span>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <strong>1000+</strong><span>Happy Clients</span>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <strong>5000+</strong><span>Products Available</span>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          <strong>10+</strong><span>Years Experience</span>
+        </div>
+      </div>
+
+      <!-- ══ ABOUT ══ -->
+      <section id="about" class="about-sec">
+        <div class="about-imgs">
+          <div class="aimg aimg-main">
+            <img src="assets/images/logback.jpg" alt="Construction" onerror="this.style.background='#1e2a3a';this.style.display='flex'" />
+          </div>
+          <div class="aimg aimg-small">
+            <div class="aimg-ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="about-text">
+          <p class="sec-tag">ABOUT US</p>
+          <h2 class="sec-title">ABOUT ALPHATERA</h2>
+          <p class="about-desc">Alphatera Construction Supply provides quality materials, equipment, and support for construction projects of all sizes.</p>
+          <div class="pillars">
+            <div class="pillar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Quality Materials</span>
+            </div>
+            <div class="pillar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <span>Fast Delivery</span>
+            </div>
+            <div class="pillar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Affordable Pricing</span>
+            </div>
+            <div class="pillar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Trusted Service</span>
+            </div>
+          </div>
+          <button class="btn-primary" (click)="scrollTo('contacts')">LEARN MORE &rarr;</button>
+        </div>
+      </section>
+
+      <!-- ══ SERVICES ══ -->
+      <section id="services" class="services-sec">
+        <p class="sec-tag light">OUR SERVICES</p>
+        <h2 class="sec-title light">WHAT WE OFFER</h2>
+        <div class="svc-grid">
+          <div class="svc-card" *ngFor="let s of services">
+            <div class="svc-img">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div class="svc-icon-wrap" [innerHTML]="s.icon"></div>
+            <h3 class="svc-name">{{ s.name }}</h3>
+            <p class="svc-desc">{{ s.desc }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ PROJECTS ══ -->
+      <section id="projects" class="projects-sec">
+        <p class="sec-tag">OUR PROJECTS</p>
+        <div class="proj-header-row">
+          <h2 class="sec-title">LATEST PROJECTS</h2>
+          <button class="btn-ghost-sm">VIEW ALL PROJECTS &rarr;</button>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card" *ngFor="let p of projects">
+            <div class="proj-img">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div class="proj-info">
+              <h3 class="proj-name">{{ p.name }}</h3>
+              <p class="proj-type">{{ p.type }}</p>
+              <a class="proj-link" href="#">VIEW PROJECT &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ TEAM ══ -->
+      <section id="team" class="team-sec">
+        <p class="sec-tag light">OUR TEAM</p>
+        <h2 class="sec-title light">MEET OUR EXPERTS</h2>
+        <div class="team-carousel">
+          <button class="car-btn" (click)="teamPrev()">&#8592;</button>
+          <div class="team-grid">
+            <div class="team-card" *ngFor="let m of visibleTeam">
+              <div class="member-photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <circle cx="12" cy="8" r="5"/>
+                  <path d="M3 21c0-4 4-7 9-7s9 3 9 7"/>
+                </svg>
+              </div>
+              <h4 class="member-name">{{ m.name }}</h4>
+              <p class="member-role">{{ m.role }}</p>
+            </div>
+          </div>
+          <button class="car-btn" (click)="teamNext()">&#8594;</button>
+        </div>
+      </section>
+
+      <!-- ══ CONTACTS ══ -->
+      <section id="contacts" class="contacts-sec">
+        <div class="contacts-left">
+          <p class="sec-tag light">GET IN TOUCH</p>
+          <h2 class="sec-title light">CONTACT US</h2>
+          <div class="ci-list">
+            <div class="ci-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>123 Construction Ave,<br>Building City, BC 1234</span>
+            </div>
+            <div class="ci-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+63 912 345 6789</span>
+            </div>
+            <div class="ci-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>info&#64;alphatera.com</span>
+            </div>
+            <div class="ci-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Mon - Sat: 8:00 AM - 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <div class="contacts-right">
+          <div class="cf-form">
+            <div class="cf-row2">
+              <input class="cf-inp" type="text" placeholder="Your Name"/>
+              <input class="cf-inp" type="email" placeholder="Your Email"/>
+            </div>
+            <input class="cf-inp" type="text" placeholder="Subject"/>
+            <textarea class="cf-ta" rows="4" placeholder="Your Message"></textarea>
+            <button class="btn-primary fw">SEND MESSAGE &rarr;</button>
+          </div>
+          <div class="map-block">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>Map Location</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ FOOTER ══ -->
+      <footer class="site-footer">
+        <div class="footer-brand-col">
+          <div class="footer-logo-wrap">
+            <img src="assets/images/logo.png" alt="Alphatera" class="f-logo"/>
+            <div>
+              <span class="f-brand-name">ALPHATERA</span>
+              <span class="f-brand-sub">CONSTRUCTION SUPPLY</span>
+            </div>
+          </div>
+          <p class="f-tagline">Trusted construction supply partner<br>for quality materials and reliable service.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="f-col-title">QUICK LINKS</h4>
+          <ul class="f-links">
+            <li *ngFor="let l of ['Home','About','Services','Projects','Our Team','Contacts']">
+              <a href="#">{{ l }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="f-col-title">OUR SERVICES</h4>
+          <ul class="f-links">
+            <li *ngFor="let s of services"><a href="#">{{ s.name }}</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="f-col-title">FOLLOW US</h4>
+          <div class="f-socials">
+            <a href="#" class="f-soc">f</a>
+            <a href="#" class="f-soc">in</a>
+            <a href="#" class="f-soc">ig</a>
+          </div>
+          <h4 class="f-col-title mt16">NEWSLETTER</h4>
+          <div class="nl-row">
+            <input type="email" placeholder="Enter your email" class="nl-inp"/>
+            <button class="nl-btn">&rarr;</button>
+          </div>
+        </div>
+      </footer>
+
+    </ng-container>
+    <!-- ↑↑↑ HANGGANG DITO LANG ANG DASHBOARD CONTENT ↑↑↑ -->
+
+    <!-- About page nire-render dito -->
+    <router-outlet></router-outlet>
+
+  </div><!-- /main-content -->
+</div>

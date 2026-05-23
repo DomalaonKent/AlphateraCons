@@ -1,0 +1,191 @@
+<div class="about-page">
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">ABOUT US</p>
+      <h1 class="hero-title">
+        BUILT ON EXPERIENCE.<br>
+        <span class="hero-title-accent">FOCUSED ON QUALITY.</span>
+      </h1>
+      <p class="hero-subtitle">
+        We are a trusted construction and engineering partner delivering
+        high-quality solutions for infrastructure, commercial, industrial,
+        and development projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section class="who-we-are">
+    <div class="who-grid">
+      <div class="who-image">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Construction team" />
+      </div>
+      <div class="who-content">
+        <p class="section-label">WHO WE ARE</p>
+        <h2>Construction & Engineering Excellence You Can Rely On</h2>
+        <p>At Alphatera Construction Supply, we provide dependable construction, engineering, and project support solutions tailored to meet the demands of modern industries.</p>
+        <p>Our team works closely with contractors, builders, engineers, and project owners to ensure every project is completed with precision, quality, and efficiency. With years of industry experience, we specialize in construction support, engineering services, technical solutions, project materials management, and procurement services.</p>
+        <p>We understand the importance of reliable operations in the construction industry. That is why we are committed to delivering trusted workmanship, quality materials, professional service, and responsive support for projects of all sizes.</p>
+        <p>Beyond construction and engineering, we also supply and procure a wide range of construction materials, industrial equipment, structural components, tools, pumping systems, and electrical products to ensure clients receive complete and cost-effective project solutions.</p>
+        <p>Our mission is to build long-term partnerships through professionalism, technical expertise, dependable delivery, and customer-focused service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section">
+    <p class="section-label orange">WHY CHOOSE US</p>
+    <div class="why-grid">
+      <div class="why-card" *ngFor="let item of whyItems">
+        <div class="why-icon">
+          <span [innerHTML]="item.icon"></span>
+        </div>
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR CAPABILITIES CAROUSEL -->
+  <section class="capabilities-section">
+    <p class="section-label orange">OUR CAPABILITIES</p>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn prev" (click)="prevSlide()">&#8249;</button>
+      <div class="carousel-track-container">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (activeSlide * 100) + '%)'">
+          <div class="carousel-slide" *ngFor="let cap of capabilities">
+            <div class="cap-image-wrapper">
+              <img [src]="cap.image" [alt]="cap.title" />
+              <div class="cap-overlay"></div>
+            </div>
+            <div class="cap-content">
+              <div class="cap-icon" [innerHTML]="cap.icon"></div>
+              <h3>{{ cap.title }}</h3>
+              <p>{{ cap.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn next" (click)="nextSlide()">&#8250;</button>
+    </div>
+    <div class="carousel-dots">
+      <span
+        class="dot"
+        *ngFor="let cap of capabilities; let i = index"
+        [class.active]="i === activeSlide"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats-strip">
+    <div class="stat" *ngFor="let stat of stats">
+      <div class="stat-icon" [innerHTML]="stat.icon"></div>
+      <span class="stat-value">{{ stat.value }}</span>
+      <span class="stat-label">{{ stat.label }}</span>
+    </div>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="mv-section">
+    <div class="mv-grid">
+      <div class="mv-card">
+        <div class="mv-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E8540A" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="3"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="6" y2="12"/>
+            <line x1="18" y1="12" x2="22" y2="12"/>
+          </svg>
+        </div>
+        <h3>OUR MISSION</h3>
+        <p>To provide reliable construction, engineering, and industrial support solutions that deliver quality, safety, efficiency, and long-term value for every client and project we serve.</p>
+      </div>
+      <div class="mv-image">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" alt="Vision" />
+        <div class="mv-image-overlay"></div>
+      </div>
+      <div class="mv-card">
+        <div class="mv-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E8540A" stroke-width="1.5">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h3>OUR VISION</h3>
+        <p>To become one of the leading and most trusted construction and engineering support companies known for excellence, innovation, dependable service, and strong client partnerships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-icon">A</span>
+          <div>
+            <strong>ALPHATERA</strong>
+            <small>CONSTRUCTION SUPPLY</small>
+          </div>
+        </div>
+        <p>Trusted construction supply partner for quality materials and reliable service.</p>
+      </div>
+      <div class="footer-col">
+        <h5>QUICK LINKS</h5>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Contacts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>OUR SERVICES</h5>
+        <ul>
+          <li><a href="#">Material Supply</a></li>
+          <li><a href="#">Equipment Rental</a></li>
+          <li><a href="#">Delivery Services</a></li>
+          <li><a href="#">Project Support</a></li>
+          <li><a href="#">Site Consultation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>FOLLOW US</h5>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>NEWSLETTER</h5>
+        <p class="footer-newsletter-text">Get the latest updates and promotions.</p>
+        <div class="footer-newsletter">
+          <input type="email" placeholder="Enter your email" />
+          <button>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Alphatera Construction Supply. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</div>
