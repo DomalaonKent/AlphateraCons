@@ -1,9 +1,14 @@
-import { Component, OnInit, inject, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoginService } from '../login/login.service';
 import { DashboardService, DashboardStats } from './dashboard.service';
+
+// Leaflet coords for Alphatera Construction Supply
+const LAT  = 12.9826047;
+const LNG  = 124.0064862;
+const ZOOM = 17;
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +17,7 @@ import { DashboardService, DashboardStats } from './dashboard.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   public router = inject(Router);
   private loginService = inject(LoginService);
   private dashboardService = inject(DashboardService);
@@ -24,6 +29,8 @@ export class DashboardComponent implements OnInit {
   isMobile = false;
   activeSection = 'home';
   isChildRoute = false;
+
+  private homeMap: any = null;   // holds the Leaflet map instance
 
   teamIndex = 0;
   allTeam = [
@@ -40,11 +47,36 @@ export class DashboardComponent implements OnInit {
   }
 
   services = [
-    { name: 'Material Supply',    desc: 'Quality materials for every construction need.',                 icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>' },
-    { name: 'Equipment Rental',   desc: 'Rent reliable equipment for your project requirements.',        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>' },
-    { name: 'Delivery Services',  desc: 'Timely and safe delivery straight to your construction site.', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>' },
-    { name: 'Project Support',    desc: 'We support your project from start to completion.',             icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>' },
-    { name: 'Site Consultation',  desc: 'Expert advice to help you build smarter and better.',           icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
+    {
+      name: 'Material Supply',
+      img:  'assets/images/Matsupply.jpg',
+      desc: 'Quality materials for every construction need.',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>'
+    },
+    {
+      name: 'Equipment Rental',
+      img:  'assets/images/equipmentrent.avif',
+      desc: 'Rent reliable equipment for your project requirements.',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>'
+    },
+    {
+      name: 'Delivery Services',
+      img:  'assets/images/deliveryserv.jpg',
+      desc: 'Timely and safe delivery straight to your construction site.',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+    },
+    {
+      name: 'Project Support',
+      img:  'assets/images/projectsupp.webp',
+      desc: 'We support your project from start to completion.',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'
+    },
+    {
+      name: 'Site Consultation',
+      img:  'assets/images/sitecons.jpg',
+      desc: 'Expert advice to help you build smarter and better.',
+      icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
+    },
   ];
 
   projects = [
@@ -59,7 +91,8 @@ export class DashboardComponent implements OnInit {
     this.isChildRoute = this.router.url.includes('/dashboard/about')
                      || this.router.url.includes('/dashboard/services')
                      || this.router.url.includes('/dashboard/projects')
-                     || this.router.url.includes('/dashboard/our-team');
+                     || this.router.url.includes('/dashboard/our-team')
+                     || this.router.url.includes('/dashboard/contacts');
 
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
@@ -67,9 +100,13 @@ export class DashboardComponent implements OnInit {
       this.isChildRoute = e.url.includes('/dashboard/about')
                        || e.url.includes('/dashboard/services')
                        || e.url.includes('/dashboard/projects')
-                       || e.url.includes('/dashboard/our-team');
+                       || e.url.includes('/dashboard/our-team')
+                       || e.url.includes('/dashboard/contacts');
       if (!this.isChildRoute) {
-        setTimeout(() => this.setupScrollSpy(), 300);
+        setTimeout(() => {
+          this.setupScrollSpy();
+          this.initMap();          // re-init map when returning to home
+        }, 300);
       }
     });
 
@@ -83,9 +120,63 @@ export class DashboardComponent implements OnInit {
       this.setupScrollSpy();
       setTimeout(() => {
         const el = document.querySelector('.hero') as HTMLElement;
-        if (el) el.style.backgroundImage = "url('assets/images/logback.jpg')";
+        if (el) el.style.backgroundImage = "url('assets/images/homeback.jpg')";
       }, 0);
     }
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.isChildRoute) {
+      // small delay so the DOM element exists before Leaflet tries to bind
+      setTimeout(() => this.initMap(), 400);
+    }
+  }
+
+  // ── Leaflet map initializer ────────────────────────────────────────────────
+  private initMap(): void {
+    // Avoid double-init
+    if (this.homeMap) {
+      this.homeMap.remove();
+      this.homeMap = null;
+    }
+
+    const el = document.getElementById('home-map');
+    if (!el) return;
+
+    // Dynamically import Leaflet so it only loads when needed
+    import('leaflet').then(L => {
+      // Custom rust-coloured marker using SVG data-URI
+      const icon = L.divIcon({
+        className: '',
+        html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="32" height="48">
+                 <path fill="#C0420A" stroke="#fff" stroke-width="1.2"
+                   d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z"/>
+                 <circle fill="#fff" cx="12" cy="12" r="4.5"/>
+               </svg>`,
+        iconSize:   [32, 48],
+        iconAnchor: [16, 48],
+        popupAnchor:[0, -50]
+      });
+
+      this.homeMap = L.map('home-map', { zoomControl: true, scrollWheelZoom: false })
+        .setView([LAT, LNG], ZOOM);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(this.homeMap);
+
+      L.marker([LAT, LNG], { icon })
+        .addTo(this.homeMap)
+        .bindPopup(
+          `<strong>Alphatera Construction Supply</strong><br>
+           Anonas St., Gate 2, SPPVS<br>
+           Bibincahan, Sorsogon City<br>
+           Sorsogon 4700, Philippines`,
+          { maxWidth: 220 }
+        )
+        .openPopup();
+    });
   }
 
   @HostListener('window:resize')
@@ -126,21 +217,12 @@ export class DashboardComponent implements OnInit {
     if (this.teamIndex > 0) this.teamIndex -= 1;
   }
 
-  goToAbout(): void {
-    this.router.navigate(['/dashboard/about']);
-  }
-
-  goToServices(): void {
-    this.router.navigate(['/dashboard/services']);
-  }
-
-  goToProjects(): void {
-    this.router.navigate(['/dashboard/projects']);
-  }
-
-  goToOurTeam(): void {
-    this.router.navigate(['/dashboard/our-team']);
-  }
+  goToHome(): void    { this.router.navigate(['/dashboard']); }
+  goToAbout(): void   { this.router.navigate(['/dashboard/about']); }
+  goToServices(): void { this.router.navigate(['/dashboard/services']); }
+  goToProjects(): void { this.router.navigate(['/dashboard/projects']); }
+  goToOurTeam(): void  { this.router.navigate(['/dashboard/our-team']); }
+  goToContacts(): void { this.router.navigate(['/dashboard/contacts']); }
 
   logout(): void {
     this.loginService.logout();

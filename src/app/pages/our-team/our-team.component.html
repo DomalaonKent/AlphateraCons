@@ -78,23 +78,26 @@
         class="member-card"
         *ngFor="let m of filteredMembers"
         (click)="openMember(m)">
-        <div class="member-avatar" [style.background]="m.color">
-          <span>{{ m.initials }}</span>
+        <!-- Photo placeholder -->
+        <div class="member-photo" [style.--accent]="m.color">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.35"/>
+              <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.25"/>
+            </svg>
+          </div>
+          <div class="photo-overlay">
+            <span class="photo-dept">{{ m.department }}</span>
+            <button class="photo-view-btn">VIEW PROFILE →</button>
+          </div>
+          <span class="exp-pill">{{ m.yearsExp }}+ yrs</span>
         </div>
-        <div class="member-body">
-          <span class="member-dept">{{ m.department }}</span>
+        <!-- Info -->
+        <div class="member-info">
           <h3 class="member-name">{{ m.name }}</h3>
           <p class="member-role">{{ m.role }}</p>
-          <p class="member-bio">{{ m.bio }}</p>
-          <div class="member-skills">
-            <span class="skill-tag" *ngFor="let sk of m.skills">{{ sk }}</span>
-          </div>
-          <div class="member-footer">
-            <span class="exp-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/></svg>
-              {{ m.yearsExp }}+ yrs
-            </span>
-            <button class="view-profile-btn">VIEW PROFILE →</button>
+          <div class="member-skill-row">
+            <span class="skill-chip" *ngFor="let sk of m.skills.slice(0,2)">{{ sk }}</span>
           </div>
         </div>
       </div>
@@ -111,9 +114,12 @@
       <button class="modal-close" (click)="closeMember()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <div class="modal-top" [style.background]="selectedMember.color + '22'">
-        <div class="modal-avatar" [style.background]="selectedMember.color">
-          <span>{{ selectedMember.initials }}</span>
+      <div class="modal-top" [style.background]="selectedMember.color + '18'">
+        <div class="modal-photo" [style.--accent]="selectedMember.color">
+          <svg viewBox="0 0 80 90" fill="none">
+            <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.4"/>
+            <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.3"/>
+          </svg>
         </div>
         <div class="modal-title-block">
           <span class="modal-dept-tag">{{ selectedMember.department }}</span>

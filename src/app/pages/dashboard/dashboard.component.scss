@@ -102,45 +102,16 @@ $bg:      #0a1628;
 
 .nav-label { overflow: hidden; transition: opacity .2s; }
 
-// Sidebar CTA block
-.sidebar-cta-block {
-  padding: 16px 14px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-}
-
-.quote-btn {
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; padding: 10px 14px;
-  background: rgba(192,66,10,0.15);
-  border: 1.5px solid rgba(192,66,10,0.4);
+// Sidebar logout button
+.sidebar-logout-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; margin: 0 8px 4px;
   border-radius: 8px; cursor: pointer;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: .72rem; font-weight: 700; letter-spacing: .12em; color: $rust-lt;
-  transition: all .2s;
+  color: rgba(255,255,255,0.4);
+  transition: background .18s, color .18s;
   svg { width: 16px; height: 16px; flex-shrink: 0; }
-  &:hover { background: rgba(192,66,10,0.3); border-color: $rust; color: #fff; }
-}
-
-.sidebar-contacts { margin-top: 14px; }
-.sc-item {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .72rem; color: rgba(255,255,255,0.45);
-  margin-bottom: 6px;
-  svg { width: 13px; height: 13px; flex-shrink: 0; }
-}
-
-.sidebar-socials { display: flex; gap: 8px; margin: 12px 0; }
-.soc-link {
-  width: 28px; height: 28px; border-radius: 6px;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .65rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none;
-  transition: all .2s;
-  &:hover { background: rgba(192,66,10,0.2); color: $rust-lt; border-color: $rust; }
-}
-
-.sidebar-copy {
-  font-size: .62rem; color: rgba(255,255,255,0.3); line-height: 1.5;
+  .nav-label { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; letter-spacing: .1em; }
+  &:hover { background: rgba(192,66,10,0.15); color: $rust-lt; }
 }
 
 .sidebar-footer-toggle {
@@ -157,7 +128,7 @@ $bg:      #0a1628;
 // ─── Narrow ───────────────────────────────────────
 .layout-wrapper.sidebar-narrow {
   .sidebar { width: $sn; }
-  .brand-text, .nav-label, .sidebar-cta-block,
+  .brand-text, .nav-label, .sidebar-logout-btn,
   .sidebar-footer-toggle .nav-label { opacity: 0; width: 0; pointer-events: none; }
   .nav-link { justify-content: center; padding: 11px 0; margin: 2px 8px; }
   .sidebar-footer-toggle { justify-content: center; padding: 12px 0; }
@@ -231,7 +202,7 @@ $bg:      #0a1628;
 // ─── HERO ─────────────────────────────────────────
 .hero {
   position: relative; min-height: 100vh;
-  background: #0a1628;
+  background: url('/assets/images/homeback.jpg') center/cover no-repeat, #0a1628;
   display: flex; align-items: center;
 }
 
@@ -302,26 +273,24 @@ $bg:      #0a1628;
 
 .aimg {
   position: absolute; border-radius: 6px; overflow: hidden;
-  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  // ── real images fill the frame ──
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
 }
 
 .aimg-main {
   width: 80%; height: 320px; top: 0; left: 0;
   background: #1a2d4a;
-  img { width: 100%; height: 100%; object-fit: cover; }
 }
 
 .aimg-small {
   width: 55%; height: 200px;
   bottom: 0; right: 0;
   border: 3px solid $navy2;
-}
-
-.aimg-ph {
-  width: 100%; height: 100%;
-  background: #243650; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-  svg { width: 40px; height: 40px; stroke: rgba(255,255,255,0.2); }
+  background: #1a2d4a;
 }
 
 .about-desc {
@@ -359,10 +328,21 @@ $bg:      #0a1628;
   &:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
 }
 
+// ── service card photo ──────────────────────────────
 .svc-img {
-  height: 140px; background: #1a2d4a;
-  display: flex; align-items: center; justify-content: center;
-  svg { width: 48px; height: 48px; stroke: rgba(255,255,255,0.1); }
+  height: 140px;
+  overflow: hidden;
+  background: #1a2d4a;
+
+  img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .35s ease;
+  }
+}
+
+.svc-card:hover .svc-img img {
+  transform: scale(1.06);
 }
 
 .svc-icon-wrap {
@@ -483,11 +463,44 @@ $bg:      #0a1628;
   &:focus { border-color: $rust; background: rgba(255,255,255,0.09); }
 }
 
+// ── Leaflet map block ─────────────────────────────
 .map-block {
-  flex: 1; min-height: 200px; background: #1a2d4a; border-radius: 8px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-  color: rgba(255,255,255,0.3); font-size: .8rem;
-  svg { width: 32px; height: 32px; stroke: rgba(255,255,255,0.2); }
+  flex: 1; min-height: 240px; border-radius: 8px; overflow: hidden;
+  background: #1a2d4a; position: relative;
+
+  // When Leaflet has not loaded yet keep a subtle bg
+  &:not(.leaflet-container):empty::after {
+    content: ''; display: block; width: 100%; height: 100%;
+    background: #1a2d4a;
+  }
+}
+
+// Leaflet popup styling to match the dark theme
+::ng-deep {
+  .leaflet-popup-content-wrapper {
+    background: #0d1b2e;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .leaflet-popup-tip { background: #0d1b2e; }
+  .leaflet-popup-content {
+    font-family: 'Barlow', sans-serif;
+    font-size: .83rem;
+    line-height: 1.55;
+    margin: 12px 16px;
+    strong { color: #E05520; display: block; margin-bottom: 4px; }
+  }
+  .leaflet-popup-close-button { color: rgba(255,255,255,0.5) !important; }
+  .leaflet-popup-close-button:hover { color: #fff !important; }
+  .leaflet-control-zoom a {
+    background: #0d1b2e !important;
+    color: #fff !important;
+    border-color: rgba(255,255,255,0.15) !important;
+    &:hover { background: #1a2d4a !important; }
+  }
+  .leaflet-attribution-flag { display: none !important; }
 }
 
 // ─── FOOTER ───────────────────────────────────────
