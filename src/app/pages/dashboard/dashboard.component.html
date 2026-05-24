@@ -17,25 +17,41 @@
     </div>
 
     <div class="sidebar-scroll">
-      <ul class="sidebar-nav">
-        <li><a class="nav-link" [class.active]="activeSection==='home'" (click)="scrollTo('home')">
-          <span class="nav-dot"></span><span class="nav-label">Home</span></a></li>
-        <li>
-          <a class="nav-link" [class.active]="isChildRoute" (click)="goToAbout()">
-            <span class="nav-dot"></span>
-            <span class="nav-label">About</span>
-          </a>
-        </li>
-        <li><a class="nav-link" [class.active]="activeSection==='services'" (click)="scrollTo('services')">
-          <span class="nav-dot"></span><span class="nav-label">Services</span></a></li>
-        <li><a class="nav-link" [class.active]="activeSection==='projects'" (click)="scrollTo('projects')">
-          <span class="nav-dot"></span><span class="nav-label">Projects</span></a></li>
-        <li><a class="nav-link" [class.active]="activeSection==='team'" (click)="scrollTo('team')">
-          <span class="nav-dot"></span><span class="nav-label">Our Team</span></a></li>
-        <li><a class="nav-link" [class.active]="activeSection==='contacts'" (click)="scrollTo('contacts')">
-          <span class="nav-dot"></span><span class="nav-label">Contacts</span></a></li>
-      </ul>
-    </div>
+  <ul class="sidebar-nav">
+    <li>
+      <a class="nav-link" [class.active]="activeSection==='home'" (click)="scrollTo('home')">
+        <span class="nav-dot"></span><span class="nav-label">Home</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link" [class.active]="router.url.includes('/dashboard/about')" (click)="goToAbout()">
+        <span class="nav-dot"></span>
+        <span class="nav-label">About</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link" [class.active]="router.url.includes('/dashboard/services')" (click)="goToServices()">
+        <span class="nav-dot"></span>
+        <span class="nav-label">Services</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link" [class.active]="activeSection==='projects'" (click)="scrollTo('projects')">
+        <span class="nav-dot"></span><span class="nav-label">Projects</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link" [class.active]="activeSection==='team'" (click)="scrollTo('team')">
+        <span class="nav-dot"></span><span class="nav-label">Our Team</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-link" [class.active]="activeSection==='contacts'" (click)="scrollTo('contacts')">
+        <span class="nav-dot"></span><span class="nav-label">Contacts</span>
+      </a>
+    </li>
+  </ul>
+</div>
 
     <div class="sidebar-cta-block" *ngIf="!sidebarNarrow">
       <button class="quote-btn">

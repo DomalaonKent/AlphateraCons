@@ -13,7 +13,7 @@ import { DashboardService, DashboardStats } from './dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  private router = inject(Router);
+  public router = inject(Router);
   private loginService = inject(LoginService);
   private dashboardService = inject(DashboardService);
 
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   sidebarVisible = false;
   isMobile = false;
   activeSection = 'home';
-  isChildRoute = false;  // ← DAGDAG
+  isChildRoute = false;
 
   teamIndex = 0;
   allTeam = [
@@ -56,14 +56,14 @@ export class DashboardComponent implements OnInit {
   stats: DashboardStats = { totalOrders: 0, pendingOrders: 0, completedOrders: 0 };
 
   ngOnInit(): void {
-    // ← DAGDAG: check kung nasa child route na agad
-    this.isChildRoute = this.router.url.includes('/dashboard/about');
+    this.isChildRoute = this.router.url.includes('/dashboard/about')
+                     || this.router.url.includes('/dashboard/services');
 
-    // ← DAGDAG: listen sa future navigation
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: any) => {
-      this.isChildRoute = e.url.includes('/dashboard/about');
+      this.isChildRoute = e.url.includes('/dashboard/about')
+                       || e.url.includes('/dashboard/services');
       if (!this.isChildRoute) {
         setTimeout(() => this.setupScrollSpy(), 300);
       }
@@ -124,6 +124,10 @@ export class DashboardComponent implements OnInit {
 
   goToAbout(): void {
     this.router.navigate(['/dashboard/about']);
+  }
+
+  goToServices(): void {
+    this.router.navigate(['/dashboard/services']);
   }
 
   logout(): void {
