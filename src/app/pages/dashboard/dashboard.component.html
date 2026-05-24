@@ -36,12 +36,12 @@
       </a>
     </li>
     <li>
-      <a class="nav-link" [class.active]="activeSection==='projects'" (click)="scrollTo('projects')">
+      <a class="nav-link" [class.active]="router.url.includes('/dashboard/projects')" (click)="goToProjects()">
         <span class="nav-dot"></span><span class="nav-label">Projects</span>
       </a>
     </li>
     <li>
-      <a class="nav-link" [class.active]="activeSection==='team'" (click)="scrollTo('team')">
+      <a class="nav-link" [class.active]="router.url.includes('/dashboard/our-team')" (click)="goToOurTeam()">
         <span class="nav-dot"></span><span class="nav-label">Our Team</span>
       </a>
     </li>
@@ -202,7 +202,7 @@
         <p class="sec-tag">OUR PROJECTS</p>
         <div class="proj-header-row">
           <h2 class="sec-title">LATEST PROJECTS</h2>
-          <button class="btn-ghost-sm">VIEW ALL PROJECTS &rarr;</button>
+          <button class="btn-ghost-sm" (click)="goToProjects()">VIEW ALL PROJECTS &rarr;</button>
         </div>
         <div class="proj-grid">
           <div class="proj-card" *ngFor="let p of projects">

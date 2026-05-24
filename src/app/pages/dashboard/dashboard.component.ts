@@ -57,13 +57,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isChildRoute = this.router.url.includes('/dashboard/about')
-                     || this.router.url.includes('/dashboard/services');
+                     || this.router.url.includes('/dashboard/services')
+                     || this.router.url.includes('/dashboard/projects')
+                     || this.router.url.includes('/dashboard/our-team');
 
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: any) => {
       this.isChildRoute = e.url.includes('/dashboard/about')
-                       || e.url.includes('/dashboard/services');
+                       || e.url.includes('/dashboard/services')
+                       || e.url.includes('/dashboard/projects')
+                       || e.url.includes('/dashboard/our-team');
       if (!this.isChildRoute) {
         setTimeout(() => this.setupScrollSpy(), 300);
       }
@@ -128,6 +132,14 @@ export class DashboardComponent implements OnInit {
 
   goToServices(): void {
     this.router.navigate(['/dashboard/services']);
+  }
+
+  goToProjects(): void {
+    this.router.navigate(['/dashboard/projects']);
+  }
+
+  goToOurTeam(): void {
+    this.router.navigate(['/dashboard/our-team']);
   }
 
   logout(): void {
