@@ -478,8 +478,9 @@ $bg:      #0a1628;
 
 .cta-image {
   flex: 0 0 42%; position: relative; overflow: hidden;
+  margin-left: 56px;
   img { width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 768px) { flex: none; height: 220px; }
+  @media (max-width: 768px) { flex: none; height: 220px; margin-left: 0; }
 }
 
 .cta-img-overlay { position: absolute; inset: 0; background: rgba(10,22,40,0.4); }
@@ -497,6 +498,28 @@ $bg:      #0a1628;
 }
 
 .cta-desc { font-size: .88rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 28px; }
+
+.cta-stats-row {
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+
+.cta-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+.cta-stat-value {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem; color: #E05520; letter-spacing: .05em; line-height: 1;
+}
+
+.cta-stat-label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.cta-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
 
 .cta-actions {
   display: flex; gap: 12px; flex-wrap: wrap;
@@ -516,7 +539,7 @@ $bg:      #0a1628;
 }
 
 // ─── FOOTER ────────────────────────────────────────
-.footer { background: $navy; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer { background: #070f1c; border-top: 1px solid rgba(255,255,255,0.06); }
 
 .footer-inner {
   display: grid;
@@ -596,4 +619,11 @@ $bg:      #0a1628;
   padding: 18px 56px; text-align: center;
   p { font-size: .72rem; color: rgba(255,255,255,0.25); font-family: 'Barlow Condensed', sans-serif; letter-spacing: .08em; }
   @media (max-width: 768px) { padding: 18px 24px; }
+}
+
+.footer-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 4px;
 }
