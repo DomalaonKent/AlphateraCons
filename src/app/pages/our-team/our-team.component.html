@@ -1,6 +1,5 @@
 <div class="team-page">
 
-  <!-- ══ HERO ══ -->
   <section class="hero-section">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -16,7 +15,6 @@
     </div>
   </section>
 
-  <!-- ══ STATS BAR ══ -->
   <section class="stats-bar">
     <div class="stats-inner">
       <div class="stat-item" *ngFor="let s of teamStats">
@@ -29,131 +27,29 @@
     </div>
   </section>
 
-  <!-- ══ DEPARTMENTS ══ -->
-  <section class="depts-sec">
-    <div class="depts-header">
-      <p class="sec-label">HOW WE'RE ORGANIZED</p>
-      <h2 class="sec-title">OUR DEPARTMENTS</h2>
-      <p class="sec-subtitle">
-        Alphatera operates through four specialized teams, each focused
-        on delivering excellence in their area of expertise.
-      </p>
-    </div>
-    <div class="depts-grid">
-      <div
-        class="dept-card"
-        *ngFor="let d of departments"
-        [class.active]="activeFilter === d.name"
-        (click)="applyFilter($any(d.name))">
-        <div class="dept-icon" [innerHTML]="d.icon"></div>
-        <div class="dept-info">
-          <h4 class="dept-name">{{ d.name }}</h4>
-          <p class="dept-desc">{{ d.desc }}</p>
-        </div>
-        <span class="dept-count">{{ d.count }} members</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ TEAM GRID ══ -->
   <section class="members-sec">
     <div class="members-header">
-      <div>
-        <p class="sec-label">THE TEAM</p>
-        <h2 class="sec-title">MEET OUR EXPERTS</h2>
-      </div>
-      <div class="filter-bar">
-        <button
-          class="filter-btn"
-          *ngFor="let cat of filterCategories"
-          [class.active]="activeFilter === cat"
-          (click)="applyFilter(cat)">
-          {{ cat }}
-        </button>
-      </div>
+      <p class="sec-label">THE TEAM</p>
+      <h2 class="sec-title">MEET OUR EXPERTS</h2>
     </div>
-
     <div class="members-grid">
-      <div
-        class="member-card"
-        *ngFor="let m of filteredMembers"
-        (click)="openMember(m)">
-        <!-- Photo placeholder -->
-        <div class="member-photo" [style.--accent]="m.color">
+      <div class="member-card" *ngFor="let m of filteredMembers">
+        <div class="member-photo">
           <div class="photo-placeholder">
             <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.35"/>
               <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.25"/>
             </svg>
           </div>
-          <div class="photo-overlay">
-            <span class="photo-dept">{{ m.department }}</span>
-            <button class="photo-view-btn">VIEW PROFILE →</button>
-          </div>
-          <span class="exp-pill">{{ m.yearsExp }}+ yrs</span>
         </div>
-        <!-- Info -->
         <div class="member-info">
           <h3 class="member-name">{{ m.name }}</h3>
           <p class="member-role">{{ m.role }}</p>
-          <div class="member-skill-row">
-            <span class="skill-chip" *ngFor="let sk of m.skills.slice(0,2)">{{ sk }}</span>
-          </div>
         </div>
       </div>
-    </div>
-
-    <div class="no-results" *ngIf="filteredMembers.length === 0">
-      <p>No team members found in this department.</p>
     </div>
   </section>
 
-  <!-- ══ MEMBER MODAL ══ -->
-  <div class="modal-backdrop" *ngIf="selectedMember" (click)="closeMember()">
-    <div class="modal-card" (click)="$event.stopPropagation()">
-      <button class="modal-close" (click)="closeMember()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <div class="modal-top" [style.background]="selectedMember.color + '18'">
-        <div class="modal-photo" [style.--accent]="selectedMember.color">
-          <svg viewBox="0 0 80 90" fill="none">
-            <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.4"/>
-            <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.3"/>
-          </svg>
-        </div>
-        <div class="modal-title-block">
-          <span class="modal-dept-tag">{{ selectedMember.department }}</span>
-          <h2 class="modal-name">{{ selectedMember.name }}</h2>
-          <p class="modal-role">{{ selectedMember.role }}</p>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="modal-section">
-          <h4>ABOUT</h4>
-          <p>{{ selectedMember.bio }}</p>
-        </div>
-        <div class="modal-section">
-          <h4>EXPERTISE</h4>
-          <div class="modal-skills">
-            <span class="skill-tag" *ngFor="let sk of selectedMember.skills">{{ sk }}</span>
-          </div>
-        </div>
-        <div class="modal-section modal-meta-row">
-          <div class="modal-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/></svg>
-            <span>{{ selectedMember.yearsExp }}+ Years Experience</span>
-          </div>
-          <div class="modal-meta-item" *ngIf="selectedMember.email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span>{{ selectedMember.email }}</span>
-          </div>
-        </div>
-        <button class="btn-primary" (click)="goToContacts(); closeMember()">GET IN TOUCH →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ VALUES ══ -->
   <section class="values-sec">
     <div class="values-left">
       <p class="sec-label">WHAT WE STAND FOR</p>
@@ -165,37 +61,28 @@
     </div>
     <div class="values-grid">
       <div class="value-card">
-        <div class="value-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h4>INTEGRITY</h4>
         <p>We operate with honesty and transparency in every transaction and relationship.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <h4>EXCELLENCE</h4>
         <p>We pursue the highest standards in materials, service, and client outcomes.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h4>TEAMWORK</h4>
         <p>We collaborate across departments to deliver seamless, end-to-end solutions.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <h4>RELIABILITY</h4>
         <p>Our clients trust us to deliver on time, every time, without compromise.</p>
       </div>
     </div>
   </section>
 
-  <!-- ══ JOIN US ══ -->
   <section class="join-sec">
     <div class="join-image">
       <img src="assets/images/growingfamilyimg.jpeg" alt="Alphatera growing team" />
@@ -209,22 +96,10 @@
         Whether you're in engineering, logistics, or client services — there's a place for you here.
       </p>
       <div class="join-perks">
-        <div class="perk-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Competitive compensation package
-        </div>
-        <div class="perk-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Growth & leadership opportunities
-        </div>
-        <div class="perk-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Collaborative & inclusive culture
-        </div>
-        <div class="perk-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-          Training & skills development
-        </div>
+        <div class="perk-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Competitive compensation package</div>
+        <div class="perk-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Growth & leadership opportunities</div>
+        <div class="perk-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Collaborative & inclusive culture</div>
+        <div class="perk-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Training & skills development</div>
       </div>
       <div class="join-contact-info">
         <div class="join-contact-item">
@@ -235,16 +110,12 @@
     </div>
   </section>
 
-  <!-- ══ FOOTER ══ -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo">
           <img src="assets/images/logo.png" alt="Alphatera Logo" class="footer-logo-img" />
-          <div>
-            <strong>ALPHATERA</strong>
-            <small>CONSTRUCTION SUPPLY</small>
-          </div>
+          <div><strong>ALPHATERA</strong><small>CONSTRUCTION SUPPLY</small></div>
         </div>
         <p>Trusted construction supply partner for quality materials and reliable service.</p>
       </div>
@@ -260,34 +131,17 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h5>DEPARTMENTS</h5>
-        <ul>
-          <li><a href="#">Management</a></li>
-          <li><a href="#">Engineering</a></li>
-          <li><a href="#">Operations</a></li>
-          <li><a href="#">Support</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
         <h5>FOLLOW US</h5>
         <div class="footer-socials">
-          <a href="#" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
         </div>
         <h5 class="mt-16">NEWSLETTER</h5>
         <p class="footer-nl-text">Get the latest updates and promotions.</p>
         <div class="footer-newsletter">
           <input type="email" placeholder="Enter your email" />
-          <button>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
+          <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@
 
     <div class="sidebar-header">
       <a class="sidebar-brand" href="#">
-        <img src="assets/images/logo.png" alt="Alphatera" class="brand-logo" />
+        <img src="assets/images/4231811f-5b38-4002-bbd4-6e7c0552c328.jfif" alt="Alphatera" class="brand-logo" />
         <div class="brand-text" *ngIf="!sidebarNarrow">
           <span class="brand-name">ALPHATERA</span>
           <span class="brand-sub">CONSTRUCTION SUPPLY</span>
@@ -197,21 +197,17 @@
       <section id="team" class="team-sec">
         <p class="sec-tag light">OUR TEAM</p>
         <h2 class="sec-title light">MEET OUR EXPERTS</h2>
-        <div class="team-carousel">
-          <button class="car-btn" (click)="teamPrev()">&#8592;</button>
-          <div class="team-grid">
-            <div class="team-card" *ngFor="let m of visibleTeam">
-              <div class="member-photo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                  <circle cx="12" cy="8" r="5"/>
-                  <path d="M3 21c0-4 4-7 9-7s9 3 9 7"/>
-                </svg>
-              </div>
-              <h4 class="member-name">{{ m.name }}</h4>
-              <p class="member-role">{{ m.role }}</p>
+        <div class="team-single">
+          <div class="team-card-single" *ngFor="let m of visibleTeam">
+            <div class="member-photo-real">
+              <img [src]="m.photo" [alt]="m.name" />
             </div>
+            <h4 class="member-name">{{ m.name }}</h4>
+            <p class="member-role">{{ m.role }}</p>
           </div>
-          <button class="car-btn" (click)="teamNext()">&#8594;</button>
+        </div>
+        <div class="team-cta">
+          <button class="btn-ghost-sm" (click)="goToOurTeam()">MEET THE FULL TEAM &rarr;</button>
         </div>
       </section>
 

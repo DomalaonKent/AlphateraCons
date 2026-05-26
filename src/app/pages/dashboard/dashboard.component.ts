@@ -28,18 +28,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   private homeMap: any = null;
 
   teamIndex = 0;
-  allTeam = [
-    { name: 'John Dela Cruz',  role: 'Project Manager' },
-    { name: 'Maria Santos',    role: 'Procurement Head' },
-    { name: 'Michael Tan',     role: 'Logistics Manager' },
-    { name: 'Daniel Cruz',     role: 'Site Engineer' },
-    { name: 'Ana Reyes',       role: 'Safety Officer' },
-    { name: 'Jose Bautista',   role: 'Field Supervisor' },
-  ];
-  get visibleTeam() {
-    const perPage = this.isMobile ? 1 : 4;
-    return this.allTeam.slice(this.teamIndex, this.teamIndex + perPage);
-  }
+allTeam = [
+  { name: 'Cielito Zamar Lachica', role: 'President, Authorized Managing Officer (AMO)', photo: 'assets/images/30bd27ce-8734-4db5-a6b2-72c46b4a1fe1.jfif' },
+];
+get visibleTeam() {
+  return this.allTeam;
+}
 
   services = [
     {
@@ -76,8 +70,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   projects = [
     { name: 'THE APEX PLAZA',       type: 'Commercial Building' },
-    { name: 'RIVERDALE BRIDGE',     type: 'Infrastructure Project' },
-    { name: 'INDUSTRIAL WAREHOUSE', type: 'Industrial Construction' },
   ];
 
   stats: DashboardStats = { totalOrders: 0, pendingOrders: 0, completedOrders: 0 };
