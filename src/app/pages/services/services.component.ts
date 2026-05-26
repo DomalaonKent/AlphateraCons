@@ -30,6 +30,8 @@ export class ServicesComponent implements OnInit {
     this.router.navigate(['/dashboard'], { fragment: 'contacts' });
   }
 
+  goTo(path: string): void { this.router.navigate([path]); }
+
   goToAbout(): void {
     this.router.navigate(['/dashboard/about']);
   }

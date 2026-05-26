@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ServicesComponent } from './pages/services/services.component';
@@ -8,8 +7,7 @@ import { OurTeamComponent } from './pages/our-team/our-team.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -21,4 +19,5 @@ export const routes: Routes = [
       { path: 'contacts', component: ContactsComponent }
     ]
   },
+  { path: '**', redirectTo: 'dashboard' }
 ];

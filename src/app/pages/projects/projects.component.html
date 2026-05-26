@@ -202,12 +202,12 @@
       <div class="footer-col">
         <h5>QUICK LINKS</h5>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Our Team</a></li>
-          <li><a href="#">Contacts</a></li>
+          <li><a (click)="goTo('/dashboard')" style="cursor:pointer">Home</a></li>
+          <li><a (click)="goTo('/dashboard/about')" style="cursor:pointer">About</a></li>
+          <li><a (click)="goTo('/dashboard/services')" style="cursor:pointer">Services</a></li>
+          <li><a (click)="goTo('/dashboard/projects')" style="cursor:pointer">Projects</a></li>
+          <li><a (click)="goTo('/dashboard/our-team')" style="cursor:pointer">Our Team</a></li>
+          <li><a (click)="goTo('/dashboard/contacts')" style="cursor:pointer">Contacts</a></li>
         </ul>
       </div>
       <div class="footer-col">

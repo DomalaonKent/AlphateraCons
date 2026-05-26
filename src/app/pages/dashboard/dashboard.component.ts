@@ -2,10 +2,8 @@ import { Component, OnInit, AfterViewInit, inject, HostListener } from '@angular
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { LoginService } from '../login/login.service';
 import { DashboardService, DashboardStats } from './dashboard.service';
 
-// Leaflet coords for Alphatera Construction Supply
 const LAT  = 12.9826047;
 const LNG  = 124.0064862;
 const ZOOM = 17;
@@ -19,18 +17,15 @@ const ZOOM = 17;
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   public router = inject(Router);
-  private loginService = inject(LoginService);
   private dashboardService = inject(DashboardService);
 
-  user: any;
-  greeting = '';
   sidebarNarrow = false;
   sidebarVisible = false;
   isMobile = false;
   activeSection = 'home';
   isChildRoute = false;
 
-  private homeMap: any = null;   // holds the Leaflet map instance
+  private homeMap: any = null;
 
   teamIndex = 0;
   allTeam = [
@@ -105,14 +100,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       if (!this.isChildRoute) {
         setTimeout(() => {
           this.setupScrollSpy();
-          this.initMap();          // re-init map when returning to home
+          this.initMap();
         }, 300);
       }
     });
 
-    this.user = this.loginService.getUser();
-    const name = this.user?.name || 'Partner';
-    this.greeting = this.dashboardService.getUserGreeting(name);
     this.stats = this.dashboardService.getStats();
     this.checkMobile();
 
@@ -127,14 +119,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (!this.isChildRoute) {
-      // small delay so the DOM element exists before Leaflet tries to bind
       setTimeout(() => this.initMap(), 400);
     }
   }
 
-  // ── Leaflet map initializer ────────────────────────────────────────────────
   private initMap(): void {
-    // Avoid double-init
     if (this.homeMap) {
       this.homeMap.remove();
       this.homeMap = null;
@@ -143,9 +132,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const el = document.getElementById('home-map');
     if (!el) return;
 
-    // Dynamically import Leaflet so it only loads when needed
     import('leaflet').then(L => {
-      // Custom rust-coloured marker using SVG data-URI
       const icon = L.divIcon({
         className: '',
         html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="32" height="48">
@@ -217,15 +204,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (this.teamIndex > 0) this.teamIndex -= 1;
   }
 
-  goToHome(): void    { this.router.navigate(['/dashboard']); }
-  goToAbout(): void   { this.router.navigate(['/dashboard/about']); }
-  goToServices(): void { this.router.navigate(['/dashboard/services']); }
-  goToProjects(): void { this.router.navigate(['/dashboard/projects']); }
-  goToOurTeam(): void  { this.router.navigate(['/dashboard/our-team']); }
-  goToContacts(): void { this.router.navigate(['/dashboard/contacts']); }
-
-  logout(): void {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
-  }
+  goToHome(): void     { this.router.navigate(['/dashboard']); }
+  goToAbout(): void    { this.router.navigate(['/dashboard/about']); }
+  goToServices(): void  { this.router.navigate(['/dashboard/services']); }
+  goToProjects(): void  { this.router.navigate(['/dashboard/projects']); }
+  goToOurTeam(): void   { this.router.navigate(['/dashboard/our-team']); }
+  goToContacts(): void  { this.router.navigate(['/dashboard/contacts']); }
 }

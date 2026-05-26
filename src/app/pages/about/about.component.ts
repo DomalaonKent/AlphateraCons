@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AboutService } from './about.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { AboutService } from './about.service';
 export class AboutComponent implements OnInit, OnDestroy {
 
   private aboutService = inject(AboutService);
+  private router = inject(Router);
 
   activeSlide = 0;
   private autoSlideInterval: any;
@@ -90,37 +92,23 @@ export class AboutComponent implements OnInit, OnDestroy {
     { value: '24/7',  label: 'Customer Support',    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8540A" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>` }
   ];
 
-  ngOnInit() {
-    this.startAutoSlide();
-  }
+  ngOnInit() { this.startAutoSlide(); }
+  ngOnDestroy() { this.stopAutoSlide(); }
 
-  ngOnDestroy() {
-    this.stopAutoSlide();
-  }
-
-  startAutoSlide() {
-    this.autoSlideInterval = setInterval(() => this.nextSlide(), 5000);
-  }
-
-  stopAutoSlide() {
-    if (this.autoSlideInterval) clearInterval(this.autoSlideInterval);
-  }
+  startAutoSlide() { this.autoSlideInterval = setInterval(() => this.nextSlide(), 5000); }
+  stopAutoSlide() { if (this.autoSlideInterval) clearInterval(this.autoSlideInterval); }
 
   nextSlide() {
-    this.activeSlide = this.activeSlide < this.capabilities.length - 1
-      ? this.activeSlide + 1
-      : 0;
+    this.activeSlide = this.activeSlide < this.capabilities.length - 1 ? this.activeSlide + 1 : 0;
   }
-
   prevSlide() {
-    this.activeSlide = this.activeSlide > 0
-      ? this.activeSlide - 1
-      : this.capabilities.length - 1;
+    this.activeSlide = this.activeSlide > 0 ? this.activeSlide - 1 : this.capabilities.length - 1;
   }
-
   goToSlide(index: number) {
     this.activeSlide = index;
     this.stopAutoSlide();
     this.startAutoSlide();
   }
+
+  goTo(path: string) { this.router.navigate([path]); }
 }

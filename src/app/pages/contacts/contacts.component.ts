@@ -145,6 +145,8 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.submitted = false;
   }
 
+  goTo(path: string): void { this.router.navigate([path]); }
+
   goToServices(): void {
     this.router.navigate(['/dashboard/services']);
   }

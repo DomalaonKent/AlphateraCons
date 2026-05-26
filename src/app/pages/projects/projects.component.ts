@@ -55,6 +55,8 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = null;
   }
 
+  goTo(path: string): void { this.router.navigate([path]); }
+
   goToContacts(): void {
     this.router.navigate(['/dashboard'], { fragment: 'contacts' });
   }

@@ -50,6 +50,8 @@ export class OurTeamComponent implements OnInit {
     this.selectedMember = null;
   }
 
+  goTo(path: string): void { this.router.navigate([path]); }
+
   goToContacts(): void {
     this.router.navigate(['/dashboard'], { fragment: 'contacts' });
   }
