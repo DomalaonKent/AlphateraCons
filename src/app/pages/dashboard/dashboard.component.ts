@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   teamIndex = 0;
 allTeam = [
-  { name: 'Cielito Zamar Lachica', role: 'President, Authorized Managing Officer (AMO)', photo: 'assets/images/30bd27ce-8734-4db5-a6b2-72c46b4a1fe1.jfif' },
+  { name: 'Cielito Zamar Lachica', role: 'President, Authorized Managing Officer (AMO)', photo: 'assets/images/pres1.jpg' },
 ];
 get visibleTeam() {
   return this.allTeam;
@@ -69,8 +69,8 @@ get visibleTeam() {
   ];
 
   projects = [
-    { name: 'THE APEX PLAZA',       type: 'Commercial Building' },
-  ];
+  { name: 'Municipal Project', type: 'Commercial Building', image: 'assets/images/6860e008-8d8e-4bcb-b6fc-502a3f2832a0.jfif' },
+];
 
   stats: DashboardStats = { totalOrders: 0, pendingOrders: 0, completedOrders: 0 };
 
@@ -82,20 +82,20 @@ get visibleTeam() {
                      || this.router.url.includes('/dashboard/contacts');
 
     this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe((e: any) => {
-      this.isChildRoute = e.url.includes('/dashboard/about')
-                       || e.url.includes('/dashboard/services')
-                       || e.url.includes('/dashboard/projects')
-                       || e.url.includes('/dashboard/our-team')
-                       || e.url.includes('/dashboard/contacts');
-      if (!this.isChildRoute) {
-        setTimeout(() => {
-          this.setupScrollSpy();
-          this.initMap();
-        }, 300);
-      }
-    });
+    filter(e => e instanceof NavigationEnd)
+  ).subscribe((e: any) => {
+    this.isChildRoute = e.url.includes('/dashboard/about')
+                    || e.url.includes('/dashboard/services')
+                    || e.url.includes('/dashboard/projects')
+                    || e.url.includes('/dashboard/our-team')
+                    || e.url.includes('/dashboard/contacts');
+    if (!this.isChildRoute) {
+      setTimeout(() => {
+        this.setupScrollSpy();
+        this.initMap();
+      }, 1000);
+    }
+  });
 
     this.stats = this.dashboardService.getStats();
     this.checkMobile();
@@ -110,53 +110,77 @@ get visibleTeam() {
   }
 
   ngAfterViewInit(): void {
-    if (!this.isChildRoute) {
-      setTimeout(() => this.initMap(), 400);
-    }
-  }
-
-  private initMap(): void {
-    if (this.homeMap) {
-      this.homeMap.remove();
-      this.homeMap = null;
-    }
-
-    const el = document.getElementById('home-map');
-    if (!el) return;
-
-    import('leaflet').then(L => {
-      const icon = L.divIcon({
-        className: '',
-        html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="32" height="48">
-                 <path fill="#C0420A" stroke="#fff" stroke-width="1.2"
-                   d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z"/>
-                 <circle fill="#fff" cx="12" cy="12" r="4.5"/>
-               </svg>`,
-        iconSize:   [32, 48],
-        iconAnchor: [16, 48],
-        popupAnchor:[0, -50]
-      });
-
-      this.homeMap = L.map('home-map', { zoomControl: true, scrollWheelZoom: false })
-        .setView([LAT, LNG], ZOOM);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
-      }).addTo(this.homeMap);
-
-      L.marker([LAT, LNG], { icon })
-        .addTo(this.homeMap)
-        .bindPopup(
-          `<strong>Alphatera Construction Supply</strong><br>
-           Anonas St., Gate 2, SPPVS<br>
-           Bibincahan, Sorsogon City<br>
-           Sorsogon 4700, Philippines`,
-          { maxWidth: 220 }
-        )
-        .openPopup();
+  if (!this.isChildRoute) {
+    Promise.resolve().then(() => {
+      setTimeout(() => this.initMap(), 500);
     });
   }
+}
+
+ private initMap(): void {
+  if (this.homeMap) {
+    this.homeMap.remove();
+    this.homeMap = null;
+  }
+
+  const el = document.getElementById('home-map');
+  if (!el) return;
+
+  if (!document.getElementById('leaflet-css')) {
+    const link = document.createElement('link');
+    link.id = 'leaflet-css';
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(link);
+  }
+
+  const initWithL = (L: any) => {
+    if (this.homeMap) return;
+
+    const icon = L.divIcon({
+      className: '',
+      html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="32" height="48">
+               <path fill="#C0420A" stroke="#fff" stroke-width="1.2"
+                 d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z"/>
+               <circle fill="#fff" cx="12" cy="12" r="4.5"/>
+             </svg>`,
+      iconSize: [32, 48],
+      iconAnchor: [16, 48],
+      popupAnchor: [0, -50]
+    });
+
+    this.homeMap = L.map('home-map', { zoomControl: true, scrollWheelZoom: false })
+      .setView([LAT, LNG], ZOOM);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(this.homeMap);
+
+    L.marker([LAT, LNG], { icon })
+      .addTo(this.homeMap)
+      .bindPopup(
+        `<strong>Alphatera Construction Supply</strong><br>
+         Anonas St., Gate 2, SPPVS<br>
+         Bibincahan, Sorsogon City<br>
+         Sorsogon 4700, Philippines`,
+        { maxWidth: 220 }
+      )
+      .openPopup();
+
+    setTimeout(() => this.homeMap?.invalidateSize(), 300);
+  };
+
+  if ((window as any).L) {
+    initWithL((window as any).L);
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  script.onload = () => initWithL((window as any).L);
+  document.body.appendChild(script);
+}
 
   @HostListener('window:resize')
   checkMobile(): void { this.isMobile = window.innerWidth <= 768; }

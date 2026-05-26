@@ -21,7 +21,6 @@ export interface ProjectStatItem {
 
 export interface TestimonialItem {
   name: string;
-  role: string;
   company: string;
   quote: string;
   avatar: string;
@@ -38,9 +37,9 @@ export class ProjectsService {
   return [
     {
       id: 1,
-      title: 'THE APEX PLAZA',
+      title: 'Municipal Porject',
       category: 'Commercial',
-      location: 'Sorsogon City, Philippines',
+      location: 'Prieto DiazSorsogon, Philippines',
       year: '2024',
       status: 'Completed',
       image: 'assets/images/6860e008-8d8e-4bcb-b6fc-502a3f2832a0.jfif',
@@ -79,22 +78,19 @@ export class ProjectsService {
   getTestimonials(): TestimonialItem[] {
     return [
       {
-        name: 'Engr. Ramon Villanueva',
-        role: 'Project Manager',
+        name: 'Ramon Villanueva',
         company: 'MetroInfra Corp.',
         quote: 'Alphatera delivered materials ahead of schedule and maintained consistent quality throughout our highway project. Their team coordination was exceptional.',
         avatar: 'RV'
       },
       {
-        name: 'Arch. Clara Santos',
-        role: 'Principal Architect',
+        name: 'Clara Santos',
         company: 'Santos & Partners',
         quote: 'Working with Alphatera on the Grandview Tower was seamless. They understood our technical specifications and executed with zero compromise on quality.',
         avatar: 'CS'
       },
       {
         name: 'Mr. Joel Reyes',
-        role: 'Operations Director',
         company: 'Southport Holdings',
         quote: 'Their equipment rental fleet is well-maintained and the support team is responsive 24/7. We\'ve built 3 projects together and will continue to rely on Alphatera.',
         avatar: 'JR'

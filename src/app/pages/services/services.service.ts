@@ -96,7 +96,7 @@ export class ServicesService {
       features: ['End-to-End Coordination', 'Materials Management', 'Logistics Planning', 'Budget Monitoring']
     },
     {
-      title: 'SITE CONSULTATION',
+      title: 'ENGINEERING & SITE CONSULTATION',
       image: 'assets/images/sitecons.jpg',
       iconImage: 'assets/images/sitecons.jpg',
       icon: ``,

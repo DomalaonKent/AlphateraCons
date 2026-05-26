@@ -77,7 +77,7 @@ export class AboutComponent implements OnInit, OnDestroy {
       iconImage: 'assets/images/projectsupp.webp'
     },
     {
-      title: 'SITE CONSULTATION',
+      title: 'ENGINEERING & SITE CONSULTATION',
       description: 'Our experienced engineers and consultants provide expert on-site assessment, technical guidance, and tailored recommendations to help you build smarter, safer, and more efficiently.',
       image: 'assets/images/sitecons.jpg',
       iconImage: 'assets/images/sitecons.jpg'

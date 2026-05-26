@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface TeamMember {
   name: string;
   role: string;
+  photo?: string;
 }
 
 export interface DepartmentItem {
@@ -26,15 +27,38 @@ export type DeptFilter = 'All';
 export class OurTeamService {
 
   getTeamMembers(): TeamMember[] {
-    return [
-      { name: 'Cielito Zamar Lachica', role: 'President, Authorized Managing Officer (AMO)' },
-      { name: 'Mary Rose D. Lachica', role: 'Chief Financial Officer (CFO)' },
-      { name: 'Engr. Dana Camille G. Dioquino', role: 'Project Engineer / STE' },
-      { name: 'Clarence Jann B. Biron', role: 'Executive Security & Authorized Representative' },
-      { name: 'John Carrey B. Lachica', role: 'Construction Safety Health Officer 1' },
-      { name: 'Joseph Domagco', role: 'Construction Foreman' },
-    ];
-  }
+  return [
+    {
+      name: 'Cielito Zamar Lachica',
+      role: 'President, Authorized Managing Officer (AMO)',
+      photo: 'assets/images/pres.jpg',
+    },
+    {
+      name: 'Mary Rose D. Lachica',
+      role: 'Chief Financial Officer (CFO)',
+      photo: 'assets/images/cfo.jpg',
+    },
+    {
+      name: 'Engr. Dana Camille G. Dioquino',
+      role: 'Project Engineer / STE',
+      photo: 'assets/images/PE.jpg',
+    },
+    {
+      name: 'Clarence Jann B. Biron',
+      role: 'Executive Secretary & Authorized Representative',
+      photo: 'assets/images/CLARE.jpg',
+    },
+    {
+      name: 'Reynaldo Z. Lachica',
+      role: 'Construction Safety Health Officer 1',
+      photo: 'assets/images/CSHO.jpg',
+    },
+    {
+      name: 'Joseph Domagco',
+      role: 'Construction Foreman',
+    },
+  ];
+}
 
   getDepartments(): DepartmentItem[] { return []; }
 

@@ -25,12 +25,11 @@
     <div class="members-grid">
       <div class="member-card" *ngFor="let m of filteredMembers">
         <div class="member-photo">
-          <div class="photo-placeholder">
-            <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.35"/>
-              <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.25"/>
-            </svg>
-          </div>
+        <img *ngIf="m.photo" [src]="m.photo" [alt]="m.name" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+        <svg *ngIf="!m.photo" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="40" cy="28" rx="18" ry="20" fill="currentColor" opacity="0.35"/>
+            <path d="M4 88c0-19.882 16.118-36 36-36s36 16.118 36 36" fill="currentColor" opacity="0.25"/>
+        </svg>
         </div>
         <div class="member-info">
           <h3 class="member-name">{{ m.name }}</h3>
