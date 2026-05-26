@@ -6,7 +6,6 @@
   min-height: 100vh;
   overflow-x: hidden;
   box-sizing: border-box;
-  /* ALISIN ANG LAHAT NG SHADOW AT SPACING */
   margin: 0;
   padding: 0;
 }
@@ -15,12 +14,12 @@
 .hero-section {
   position: relative;
   min-height: 420px;
-  background: url('https://images.unsplash.com/photo-1590496793929-36417d3117de?w=1400&q=80') center/cover no-repeat;
+  background: url('/assets/images/homeback.jpg') center/cover no-repeat;
   display: flex;
   align-items: flex-end;
   padding: 60px 56px;
   overflow: hidden;
-  margin: 0;  /* walang margin */
+  margin: 0;
 }
 
 .hero-overlay {
@@ -150,15 +149,31 @@
   transform: translateY(-3px);
 }
 
-.why-icon {
-  width: 52px;
-  height: 52px;
-  background: rgba(192,66,10,0.1);
+.why-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   flex-shrink: 0;
+  border: 2px solid rgba(224, 85, 32, 0.35);
+  box-shadow: 0 0 0 4px rgba(192, 66, 10, 0.08);
+  display: block;
+  position: relative;
+}
+
+.why-icon-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  transition: transform 0.35s ease;
+}
+
+.why-card:hover .why-icon-img {
+  transform: scale(1.08);
 }
 
 .why-card h4 {
@@ -240,15 +255,27 @@
   max-width: 560px;
 }
 
-.cap-icon {
+/* CAPABILITY ICON CIRCLE — real image */
+.cap-icon-wrapper {
   width: 64px;
   height: 64px;
-  background: rgba(192,66,10,0.15);
+  min-width: 64px;
+  min-height: 64px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(224, 85, 32, 0.5);
+  box-shadow: 0 0 0 4px rgba(192, 66, 10, 0.12);
   margin-bottom: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.cap-icon-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
 }
 
 .cap-content h3 {
@@ -284,7 +311,9 @@
   z-index: 5;
 }
 
-.carousel-btn:hover { background: rgba(192,66,10,0.3); }
+.carousel-btn:hover {
+  background: rgba(192,66,10,0.3);
+}
 
 .carousel-dots {
   display: flex;
@@ -438,16 +467,10 @@
   margin-bottom: 16px;
 }
 
-.logo-icon {
+.footer-logo-img {
   width: 40px;
   height: 40px;
-  background: #C0420A;
-  color: #fff;
-  font-weight: 900;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: contain;
   border-radius: 4px;
 }
 

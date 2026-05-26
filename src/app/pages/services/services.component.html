@@ -29,12 +29,14 @@
       </p>
     </div>
     <div class="commitment-pillars">
-      <div class="pillar-card" *ngFor="let c of commitments">
-        <div class="pillar-icon" [innerHTML]="c.icon"></div>
+    <div class="pillar-card" *ngFor="let c of commitments">
+        <div class="pillar-icon">
+        <img class="pillar-icon-img" [src]="c.image" [alt]="c.title" />
+        </div>
         <h4 class="pillar-title">{{ c.title }}</h4>
         <p class="pillar-desc">{{ c.desc }}</p>
-      </div>
     </div>
+</div>
   </section>
 
   <!-- ══ CORE SERVICES ══ -->
@@ -46,23 +48,27 @@
       to help our clients build with confidence.
     </p>
     <div class="services-grid">
-      <div class="service-card" *ngFor="let s of coreServices">
+    <div class="service-card" *ngFor="let s of coreServices">
         <div class="service-img">
-          <img [src]="s.image" [alt]="s.title" />
-          <div class="img-overlay"></div>
+        <img [src]="s.image" [alt]="s.title" />
+        <div class="img-overlay"></div>
         </div>
         <div class="service-body">
-          <div class="service-icon" [innerHTML]="s.icon"></div>
-          <h3 class="service-name">{{ s.title }}</h3>
-          <p class="service-desc">{{ s.desc }}</p>
-          <ul class="service-features">
-            <li *ngFor="let f of s.features">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              {{ f }}
-            </li>
-          </ul>
+        <div class="service-icon-circle">
+            <img class="service-icon-img" [src]="s.iconImage" [alt]="s.title" />
         </div>
-      </div>
+        <h3 class="service-name">{{ s.title }}</h3>
+        <p class="service-desc">{{ s.desc }}</p>
+        <ul class="service-features">
+            <li *ngFor="let f of s.features">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {{ f }}
+            </li>
+        </ul>
+        </div>
+    </div>
     </div>
   </section>
 

@@ -21,15 +21,15 @@
   <section class="who-we-are">
     <div class="who-grid">
       <div class="who-image">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Construction team" />
+        <img src="assets/images/logback.jpg" alt="Construction team" />
       </div>
       <div class="who-content">
         <p class="section-label">WHO WE ARE</p>
         <h2>Construction & Engineering Excellence You Can Rely On</h2>
         <p>At Alphatera Construction Supply, we provide dependable construction, engineering, and project support solutions tailored to meet the demands of modern industries.</p>
-        <p>Our team works closely with contractors, builders, engineers, and project owners to ensure every project is completed with precision, quality, and efficiency. With years of industry experience, we specialize in construction support, engineering services, technical solutions, project materials management, and procurement services.</p>
+        <p>Our team works closely with contractors, builders, engineers, and project owners to ensure every project is completed with precision, quality, and efficiency.</p>
         <p>We understand the importance of reliable operations in the construction industry. That is why we are committed to delivering trusted workmanship, quality materials, professional service, and responsive support for projects of all sizes.</p>
-        <p>Beyond construction and engineering, we also supply and procure a wide range of construction materials, industrial equipment, structural components, tools, pumping systems, and electrical products to ensure clients receive complete and cost-effective project solutions.</p>
+        <p>Beyond construction and engineering, we also supply and procure a wide range of construction materials, industrial equipment, structural components, tools, pumping systems, and electrical products.</p>
         <p>Our mission is to build long-term partnerships through professionalism, technical expertise, dependable delivery, and customer-focused service.</p>
       </div>
     </div>
@@ -40,8 +40,8 @@
     <p class="section-label orange">WHY CHOOSE US</p>
     <div class="why-grid">
       <div class="why-card" *ngFor="let item of whyItems">
-        <div class="why-icon">
-          <span [innerHTML]="item.icon"></span>
+        <div class="why-icon-wrapper">
+          <img class="why-icon-img" [src]="item.image" [alt]="item.title" />
         </div>
         <h4>{{ item.title }}</h4>
         <p>{{ item.description }}</p>
@@ -53,7 +53,11 @@
   <section class="capabilities-section">
     <p class="section-label orange">OUR CAPABILITIES</p>
     <div class="carousel-wrapper">
-      <button class="carousel-btn prev" (click)="prevSlide()">&#8249;</button>
+
+      <button class="carousel-btn prev" (click)="prevSlide(); stopAutoSlide(); startAutoSlide()">
+        &#8249;
+      </button>
+
       <div class="carousel-track-container">
         <div class="carousel-track" [style.transform]="'translateX(-' + (activeSlide * 100) + '%)'">
           <div class="carousel-slide" *ngFor="let cap of capabilities">
@@ -62,15 +66,22 @@
               <div class="cap-overlay"></div>
             </div>
             <div class="cap-content">
-              <div class="cap-icon" [innerHTML]="cap.icon"></div>
+              <div class="cap-icon-wrapper">
+                <img class="cap-icon-img" [src]="cap.iconImage" [alt]="cap.title" />
+              </div>
               <h3>{{ cap.title }}</h3>
               <p>{{ cap.description }}</p>
             </div>
           </div>
         </div>
       </div>
-      <button class="carousel-btn next" (click)="nextSlide()">&#8250;</button>
+
+      <button class="carousel-btn next" (click)="nextSlide(); stopAutoSlide(); startAutoSlide()">
+        &#8250;
+      </button>
+
     </div>
+
     <div class="carousel-dots">
       <span
         class="dot"
@@ -108,7 +119,7 @@
         <p>To provide reliable construction, engineering, and industrial support solutions that deliver quality, safety, efficiency, and long-term value for every client and project we serve.</p>
       </div>
       <div class="mv-image">
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" alt="Vision" />
+        <img src="assets/images/sitecons.jpg" alt="Vision" />
         <div class="mv-image-overlay"></div>
       </div>
       <div class="mv-card">
@@ -129,7 +140,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo">
-          <span class="logo-icon">A</span>
+          <img src="assets/images/logo.png" alt="Alphatera Logo" class="footer-logo-img" />
           <div>
             <strong>ALPHATERA</strong>
             <small>CONSTRUCTION SUPPLY</small>
